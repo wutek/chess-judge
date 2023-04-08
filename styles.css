@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+}
+
+#progress_modal {
+    --Width: 300px;
+    background: #ccc;
+    width: var(--Width);
+    height: 3em;
+    top: 280px;
+    left: calc(50% - var(--Width) / 2);
+    position: absolute;
+    text-align: center;
+    padding: 1em;
+    box-shadow: inset 0 0 3px 3px #000;
+    opacity: 0.8;
+    display: none;
+}
+
+fieldset {
+    margin: 2em auto;
+    max-width: 600px;
+}
+
+
+table {
+    border-spacing: 1px;
+    margin: auto;
+    box-shadow: 0 0 2px 5px black,
+    0 15px 5px -5px gray;
+}
+
+td {
+    height: 64px;
+    width: 64px;
+    background-image: url('figury_silver.png');
+}
+
+td.board_label {
+    text-align: center;
+    font-weight: bolder;
+}
+
+td.board_label.horizontal {
+    height: 20px;
+}
+
+td.board_label.vertical {
+    width: 20px;
+}
+
+.highlighted {
+    box-shadow: inset 0 0 1px 3px #060;
+}
+
+.selected {
+    box-shadow: inset 0 0 1px 3px #600;
+}
+
+.PAWN_WHITE {
+    background-position: -62px;
+}
+
+.ROOK_WHITE {
+    background-position: -126px;
+}
+
+.KNIGHT_WHITE {
+    background-position: -190px;
+}
+
+.BISHOP_WHITE {
+    background-position: -254px;
+}
+
+.QUEEN_WHITE {
+    background-position: -318px;
+}
+
+.KING_WHITE {
+    background-position: -382px;
+}
+
+.PAWN_BLACK {
+    background-position: -702px;
+}
+
+.ROOK_BLACK {
+    background-position: -766px;
+}
+
+.KNIGHT_BLACK {
+    background-position: -830px;
+}
+
+.BISHOP_BLACK {
+    background-position: -894px;
+}
+
+.QUEEN_BLACK {
+    background-position: -958px;
+}
+
+.KING_BLACK {
+    background-position: -1022px;
+}
+
+.EMPTY {
+    background-image: none;
+}
+
+.odd, .even {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 64px;
+    height: 64px;
+    z-index: -1;
+}
+
+.odd {
+    background: url('figury_silver.png') -1152px;
+}
+
+.even {
+    background: url('figury_silver.png') -1088px;
+}
