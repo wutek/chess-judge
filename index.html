@@ -48,9 +48,16 @@
 
 <fieldset>
    <legend>Options</legend>
-   <input id="endpoint1" type="text" placeholder="player1 endpoint"/>
-   <input id="endpoint2" type="text" placeholder="player2 endpoint"/>
-   <input id="clock" type="number" value="600"/>
+   <p>
+      <label for="endpoint1">URL endpoint white</label>
+      <input id="endpoint1" type="text" placeholder="player1 endpoint" value="http://localhost:8000/endpoint.php"/>
+      <input id="time-white" type="text" placeholder="00:00:000">
+   </p>
+   <p>
+      <label for="endpoint2">URL endpoint black</label>
+      <input id="endpoint2" type="text" placeholder="player2 endpoint" value="http://localhost:8000/endpoint.php"/>
+      <input id="time-black" type="text" placeholder="00:00:000">
+   </p>
    <button onclick="main()">START GAME</button>
 </fieldset>
 </body>
