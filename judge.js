@@ -93,7 +93,7 @@ function moveOnBoard(FEN, move) {
         throw new Error('invalid move format')
     }
     
-    // console.assert(FEN.match(/^[rnbqkbnrpPRNBQKBNR1-8 /]* [wb] -?K?Q?k?q? [a-h]?[1-8]?-? \d{1,2} \d{1,3}$/), 'Invalid FEN')
+    console.assert(FEN.match(/^[rnbqkbnrpPRNBQKBNR1-8 /]* [wb] (K?Q?k?q?|-) ([a-h][1-8]|-) \d{1,2} \d{1,3}$/), 'Invalid FEN')
 
     const splitFen = FEN.split(' ')
 
@@ -120,8 +120,8 @@ function moveOnBoard(FEN, move) {
         throw new Error('Black move invalid, Trying to move from field where there is no black piece.')
     }
 
-    // validate move
-    console.log(board[start[0]][start[1]], board[end[0]][end[1]])
+    // TODO: validate move
+    console.log(FEN, board[start[0]][start[1]], board[end[0]][end[1]])
 
 
     // apply move
