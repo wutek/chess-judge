@@ -103,8 +103,8 @@ function moveOnBoard(FEN, move) {
 
     const board = FENtoBoard(FEN)
     const color = splitFen[1]
-    const enPassant = splitFen[3]
     let availableCastle = splitFen[2]
+    let enPassant = splitFen[3]
     let halfMoves = splitFen[4]
     let moveNumber = splitFen[5]
     
@@ -199,15 +199,20 @@ function moveOnBoard(FEN, move) {
 
     // en passant
     if (piece === 'p' && start[0] === 4 && start[1] !== end[1] && board[end[0]][end[1]] === ' ') {
-        if (isFieldEnPassant(fen, end)) {
+        if (enPassant === '-') {
             throw new Error('En passant error. En passant field not in fen.')
         }
 
         board[4][end[1]] = ' '
     }
+    if (piece === 'P' && start[0] === 3 && start[1] !== end[1] && board[end[0]][end[1]] === ' ') {
+        if (enPassant === '-') {
+            throw new Error('En passant error. En passant field not in fen.')
+        }
 
+        board[3][end[1]] = ' '
+    }
 
-    // TODO: en passant
     // remove castling possibilities
     let castlesToRemove = []
     if (start[0] === 0 && start[1] === 0) {
@@ -239,7 +244,16 @@ function moveOnBoard(FEN, move) {
     availableCastle = removeCastlingPossibility(availableCastle, castlesToRemove)
 
 
-    // check if its needed to reset halfmove counter
+    // en passant
+    if (piece === 'p' && start[0] === 1 && end[0] === 3) {
+        enPassant = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'][start[1]] + '6'
+    }
+
+    if (piece === 'P' && start[0] === 6 && end[0] === 4) {
+        enPassant = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'][start[1]] + '3'
+    }
+
+    // reset halfmove counter after pawn move or capture
     if (piece === 'p' || piece === 'P' || board[end[0]][end[1]] !== ' ') {
         halfMoves = 0
     } else {
