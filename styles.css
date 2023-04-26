@@ -33,7 +33,7 @@ table {
 td {
     height: 64px;
     width: 64px;
-    background-image: url('figury_silver.png');
+    background-image: url('figures.png');
 }
 
 td.board_label {
@@ -102,7 +102,7 @@ td.board_label.vertical {
 }
 
 .KING_BLACK {
-    background-position: -1022px;
+    background-position: -1021px;
 }
 
 .EMPTY {
@@ -119,9 +119,9 @@ td.board_label.vertical {
 }
 
 .odd {
-    background: url('figury_silver.png') -1152px;
+    background: url('figures.png') -1152px;
 }
 
 .even {
-    background: url('figury_silver.png') -1088px;
+    background: url('figures.png') -1088px;
 }
