@@ -17,6 +17,7 @@ async function main() {
     let end = 0
 
     let FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' // starting position
+    let fenHistory = ['rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR']
     let move = ''
 
     while (noCheckmate(FEN)) {
@@ -28,10 +29,13 @@ async function main() {
         clock1 += (end - start)
         clockWhite.value = msToClock(clock1)
 
+        // TODO: add 50 move and 3 repeats rule
+
         FEN = moveOnBoard(FEN, move)
+        fenHistory.push(FEN.split(' ')[0])
         renderFEN(FEN)
 
-        await sleep(100)
+        await sleep(1000)
 
         start = (new Date()).getTime()
         move = await getMoveFromEndpoint(url2, FEN)
@@ -42,9 +46,10 @@ async function main() {
         clockBlack.value = msToClock(clock2)
 
         FEN = moveOnBoard(FEN, move)
+        fenHistory.push(FEN.split(' ')[0])
         renderFEN(FEN)
 
-        await sleep(100)
+        await sleep(1000)
     }
 }
 
