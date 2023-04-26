@@ -180,19 +180,19 @@ function moveOnBoard(FEN, move) {
     if (piece === 'K' && start[0] === 7 && start[1] === 4) {
         // short
         if (end[0] === 7 && end[1] === 6) {
-            if (board[7][7] !== 'r') {
+            if (board[7][7] !== 'R') {
                 throw new Error('White short castle error. No rook on starting position.')
             }
-            board[7][5] = 'r'
+            board[7][5] = 'R'
             board[7][7] = ' '
         }
 
         // long
         if (end[0] === 7 && end[1] === 2) {
-            if (board[7][0] !== 'r') {
-                throw new Error('Black long castle error. No rook on starting position.')
+            if (board[7][0] !== 'R') {
+                throw new Error('White long castle error. No rook on starting position.')
             }
-            board[7][3] = 'r'
+            board[7][3] = 'R'
             board[7][0] = ' '
         }
     }
