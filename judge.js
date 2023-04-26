@@ -103,8 +103,8 @@ function moveOnBoard(FEN, move) {
 
     const board = FENtoBoard(FEN)
     const color = splitFen[1]
-    const availableCastle = splitFen[2]
     const enPassant = splitFen[3]
+    let availableCastle = splitFen[2]
     let halfMoves = splitFen[4]
     let moveNumber = splitFen[5]
     
@@ -206,9 +206,38 @@ function moveOnBoard(FEN, move) {
         board[4][end[1]] = ' '
     }
 
-    // TODO: remove castle possibilities
 
     // TODO: en passant
+    // remove castling possibilities
+    let castlesToRemove = []
+    if (start[0] === 0 && start[1] === 0) {
+        // remove long black castle
+        castlesToRemove.push('q')
+    }
+    if (start[0] === 0 && start[1] === 7) {
+        // remove short black castle
+        castlesToRemove.push('k')
+    }
+    if (start[0] === 7 && start[1] === 0) {
+        // remove long white castle
+        castlesToRemove.push('Q')
+    }
+    if (start[0] === 7 && start[1] === 7) {
+        // remove short white castle
+        castlesToRemove.push('K')
+    }
+    if (piece === 'k') {
+        // remove black castles
+        castlesToRemove.push('q')
+        castlesToRemove.push('k')
+    }
+    if (piece === 'K') {
+        // remove white castles
+        castlesToRemove.push('Q')
+        castlesToRemove.push('K')
+    }
+    availableCastle = removeCastlingPossibility(availableCastle, castlesToRemove)
+
 
     // check if its needed to reset halfmove counter
     if (piece === 'p' || piece === 'P' || board[end[0]][end[1]] !== ' ') {
@@ -273,6 +302,21 @@ function msToClock(ms) {
     const miliseconds = String(Math.floor(ms % 1000))
 
     return min.padStart(2, '0') + ':' + sec.padStart(2, '0') + ":" + miliseconds.padStart(3, '0')
+}
+
+function removeCastlingPossibility(available, remove) {
+    if (available === '-') {
+        return '-'
+    }
+
+    result = ''
+
+    for (let i = 0; i < available.length; i++) {
+        if (!remove.includes(available[i]))
+            result += available[i]
+    }
+
+    return result === '' ? '-' : result
 }
 
 let FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' // starting position
