@@ -215,19 +215,19 @@ function moveOnBoard(FEN, move) {
 
     // remove castling possibilities
     let castlesToRemove = []
-    if (start[0] === 0 && start[1] === 0) {
+    if ((start[0] === 0 && start[1] === 0) || (end[0] === 0 && end[1] === 0)) {
         // remove long black castle
         castlesToRemove.push('q')
     }
-    if (start[0] === 0 && start[1] === 7) {
+    if ((start[0] === 0 && start[1] === 7) || (end[0] === 0 && end[1] === 7)) {
         // remove short black castle
         castlesToRemove.push('k')
     }
-    if (start[0] === 7 && start[1] === 0) {
+    if ((start[0] === 7 && start[1] === 0) || (end[0] === 7 && end[1] === 0)) {
         // remove long white castle
         castlesToRemove.push('Q')
     }
-    if (start[0] === 7 && start[1] === 7) {
+    if ((start[0] === 7 && start[1] === 7) || (end[0] === 7 && end[1] === 7)) {
         // remove short white castle
         castlesToRemove.push('K')
     }
