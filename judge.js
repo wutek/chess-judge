@@ -53,19 +53,7 @@ function sleep(ms) {
 }
 
 async function getMoveFromEndpoint(url, data) {
-    const response = await fetch(url + '?fen=' + encodeURIComponent(data),
-        {
-            method: "GET", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "same-origin", // include, *same-origin, omit
-            headers: {
-                "Content-Type": "application/json",
-            },
-            redirect: "follow", // manual, *follow, error
-            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        }
-    )
+    const response = await fetch(url + '?fen=' + encodeURIComponent(data), {})
 
     return await response.text()
 }
@@ -229,16 +217,14 @@ function moveOnBoard(FEN, move) {
         moveNumber = Number(moveNumber) + 1
     }
 
-    let fen = [
+    return [
         BoardToFEN(board),
         oppositeColor(color),
         availableCastle,
         enPassant,
         String(halfMoves),
         String(moveNumber)
-    ]
-
-    return fen.join(' ')
+    ].join(' ')
 }
 
 function renderFEN(FEN) {
