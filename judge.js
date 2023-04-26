@@ -16,7 +16,10 @@ async function main() {
     let start = 0
     let end = 0
 
-    let FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' // starting position
+    let FEN = document.getElementById('starting-position').value
+    if (!validateFEN(FEN)) {
+        FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+    }
     let fenHistory = ['rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR']
     let move = ''
 
@@ -333,5 +336,16 @@ function removeCastlingPossibility(available, remove) {
     return result === '' ? '-' : result
 }
 
-let FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' // starting position
-renderFEN(FEN)
+function render() {
+    const FEN = document.getElementById('starting-position').value
+
+    if (validateFEN(FEN)) {
+        renderFEN(FEN)
+    }
+}
+
+function validateFEN(FEN) {
+    return FEN.match(/^[rnbqkbnrpPRNBQKBNR1-8 /]* [wb] (K?Q?k?q?|-) ([a-h][1-8]|-) \d{1,2} \d{1,3}$/)
+}
+
+render()
