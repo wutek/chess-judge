@@ -1,4 +1,11 @@
 async function main() {
+    if (this.inProgress) {
+        console.log('Game already in progress...')
+        return
+    }
+
+    this.inProgress = true
+
     const url1 = document.getElementById('endpoint1').value
     const url2 = document.getElementById('endpoint2').value
     const clockWhite = document.getElementById('time-white')
