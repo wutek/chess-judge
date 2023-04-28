@@ -38,7 +38,13 @@ async function main() {
         fenHistory.push(FEN.split(' ')[0])
         renderFEN(FEN)
 
-        await sleep(1000)
+        if (check50moveRule(FEN)) {
+            alert('DRAW by 50 move rule')
+            this.inProgress = false
+            break
+        }
+
+        await sleep(2000)
 
         start = (new Date()).getTime()
         move = await getMoveFromEndpoint(url2, FEN)
@@ -52,7 +58,7 @@ async function main() {
         fenHistory.push(FEN.split(' ')[0])
         renderFEN(FEN)
 
-        await sleep(1000)
+        await sleep(2000)
     }
 }
 
@@ -126,6 +132,12 @@ function moveOnBoard(FEN, move) {
     // TODO: validate move
     console.log(FEN, board[start[0]][start[1]], board[end[0]][end[1]])
 
+    // reset halfmove counter after pawn move or capture
+    if (piece === 'p' || piece === 'P' || board[end[0]][end[1]] !== ' ') {
+        halfMoves = 0
+    } else {
+        halfMoves = Number(halfMoves) + 1
+    }
 
     // apply move
     board[start[0]][start[1]] = ' '
@@ -250,17 +262,10 @@ function moveOnBoard(FEN, move) {
     // en passant
     if (piece === 'p' && start[0] === 1 && end[0] === 3) {
         enPassant = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'][start[1]] + '6'
-    }
-
-    if (piece === 'P' && start[0] === 6 && end[0] === 4) {
+    } else if (piece === 'P' && start[0] === 6 && end[0] === 4) {
         enPassant = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'][start[1]] + '3'
-    }
-
-    // reset halfmove counter after pawn move or capture
-    if (piece === 'p' || piece === 'P' || board[end[0]][end[1]] !== ' ') {
-        halfMoves = 0
     } else {
-        halfMoves = Number(halfMoves) + 1
+        enPassant = '-'
     }
 
     // increase move number
@@ -346,6 +351,10 @@ function render() {
 
 function validateFEN(FEN) {
     return FEN.match(/^[rnbqkbnrpPRNBQKBNR1-8 /]* [wb] (K?Q?k?q?|-) ([a-h][1-8]|-) \d{1,2} \d{1,3}$/)
+}
+
+function check50moveRule(FEN) {
+    return Number(FEN.split(' ')[4]) >= 50
 }
 
 render()
